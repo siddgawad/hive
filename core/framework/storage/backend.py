@@ -198,8 +198,13 @@ class FileStorage:
         values = self._get_index(index_type, key)  # Already validated in _get_index
         if value not in values:
             values.append(value)
-            with open(index_path, "w", encoding="utf-8") as f:
+            
+            # Atomic write for index
+            idx_tmp = index_path.with_suffix(".tmp")
+            with open(idx_tmp, "w", encoding="utf-8") as f:
                 json.dump(values, f)
+            
+            idx_tmp.replace(index_path)
 
     def _remove_from_index(self, index_type: str, key: str, value: str) -> None:
         """Remove a value from an index."""
