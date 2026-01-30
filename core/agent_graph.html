@@ -1,0 +1,33 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Agent Graph Visualization</title>
+        <script type="module">
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+        <style>
+            body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+            .mermaid { width: 100%; max-width: 800px; text-align: center; }
+            h1 { color: #333; }
+        </style>
+    </head>
+    <body>
+        <h1>Agent Architecture: greeting-agent</h1>
+        <div class="mermaid">
+            graph TD
+    classDef processing fill:#fff,stroke:#333,stroke-width:1px,color:#333;
+    classDef entry fill:#e3f2fd,stroke:#2196f3,stroke-width:2px,color:#0d47a1;
+    classDef terminal fill:#fbe9e7,stroke:#ff5722,stroke-width:2px,color:#bf360c;
+    classDef pause fill:#fff8e1,stroke:#ffc107,stroke-width:2px,stroke-dasharray: 5 5,color:#ff6f00;
+    classDef router fill:#f3e5f5,stroke:#9c27b0,stroke-width:1px,shape:rhombus,color:#4a148c;
+
+    greeter(("Greeter")):::entry
+    uppercaser(["Uppercaser"]):::terminal
+
+    greeter --> uppercaser
+        </div>
+    </body>
+    </html>
+    

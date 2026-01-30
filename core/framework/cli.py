@@ -75,6 +75,11 @@ def main():
 
     register_testing_commands(subparsers)
 
+    # Register visualization commands
+    from framework.visualization.cli import register_visualization_commands
+
+    register_visualization_commands(subparsers)
+
     args = parser.parse_args()
 
     if hasattr(args, "func"):
