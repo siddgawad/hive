@@ -69,21 +69,6 @@ from .storage import (
 from .store import CredentialStore
 from .template import TemplateResolver
 
-# Aden sync components (lazy import to avoid httpx dependency when not needed)
-# Usage: from core.framework.credentials.aden import AdenSyncProvider
-# Or: from core.framework.credentials import AdenSyncProvider
-try:
-    from .aden import (
-        AdenCachedStorage,
-        AdenClientConfig,
-        AdenCredentialClient,
-        AdenSyncProvider,
-    )
-
-    _ADEN_AVAILABLE = True
-except ImportError:
-    _ADEN_AVAILABLE = False
-
 __all__ = [
     # Main store
     "CredentialStore",
@@ -111,12 +96,28 @@ __all__ = [
     "CredentialRefreshError",
     "CredentialValidationError",
     "CredentialDecryptionError",
-    # Aden sync (optional - requires httpx)
-    "AdenSyncProvider",
-    "AdenCredentialClient",
-    "AdenClientConfig",
-    "AdenCachedStorage",
 ]
+
+# Aden sync components (lazy import to avoid httpx dependency when not needed)
+# Usage: from core.framework.credentials.aden import AdenSyncProvider
+# Or: from core.framework.credentials import AdenSyncProvider
+try:
+    from .aden import (
+        AdenCachedStorage,
+        AdenClientConfig,
+        AdenCredentialClient,
+        AdenSyncProvider,
+    )
+
+    _ADEN_AVAILABLE = True
+    __all__.extend([
+        "AdenSyncProvider",
+        "AdenCredentialClient",
+        "AdenClientConfig",
+        "AdenCachedStorage",
+    ])
+except ImportError:
+    _ADEN_AVAILABLE = False
 
 # Track Aden availability for runtime checks
 ADEN_AVAILABLE = _ADEN_AVAILABLE
